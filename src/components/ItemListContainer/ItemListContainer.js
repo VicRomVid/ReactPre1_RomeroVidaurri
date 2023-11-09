@@ -23,7 +23,7 @@ const ItemListContainer = ({ greeting }) => {
             .then(response => {
                 const productsAdapted = response.docs.map(doc => {
                     const data = doc.data()
-                    return { id: doc, id, ...data }
+                    return { id: doc.id, ...data }
                 })
                 setProducts(productsAdapted)
             })
