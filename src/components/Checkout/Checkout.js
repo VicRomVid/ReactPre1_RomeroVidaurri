@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { getDocs, collection, query, where, Timestamp, writeBatch } from 'firebase/firestore'
 import { db } from '../../services/firebase/firebaseConfig'
 
@@ -21,7 +22,7 @@ const Checkout = () => {
                 },
                 items: cart,
                 total: total,
-                date: Timestamp FromDate(new Date())
+                date: Timestamp.fromDate(new Date())
             }
 
             const batch = writeBatch(db)
@@ -38,13 +39,13 @@ const Checkout = () => {
 
             docs.forEach(doc => {
                 const dataDoc = doc.data()
-                const stockOb = dataDoc.stock
+                const stockDb = dataDoc.stock
 
-                const productAddedToCart = cart.find(prod => prod-id === doc.id)
+                const productAddedToCart = cart.find(prod => prod.id === doc.id)
                 const prodQuantity = productAddedToCart?.prodQuantity
 
-                if(stockOb >= prodQuantity) {
-                    batch.update(doc.ref, { stock: stockOb = prodQuantity })
+                if(stockDb >= prodQuantity) {
+                    batch.update(doc.ref, { stock: stockDb = prodQuantity })
                 } else {
                     outOfStock.push({ id: doc.id, ...dataDoc})
                 }
@@ -71,11 +72,11 @@ const Checkout = () => {
     }
 
     if(loading) {
-        return <h1>Se está generando su órden...</h1>
+        return <h1>Se está generando su orden...</h1>
     }
 
     if(orderId) {
-        return <h1>El id de su órden es: (orderId)</h1>
+        return <h1>El id de su órden es: {orderId}</h1>
     }
 
     return (

@@ -6,7 +6,7 @@ const CheckoutForm = ({ onConfirm }) => {
     const [email, setEmail] = useState('')
 
     const handleConfirm = (event) => {
-        event preventDefault()
+        event.preventDefault()
 
         const userData = {
             name, phone, email
@@ -28,6 +28,7 @@ const CheckoutForm = ({ onConfirm }) => {
                     />
                     </label>
                     <label className='Label'>
+                    Teléfono
                     <input
                         className='Input'
                         type='text'
@@ -43,10 +44,6 @@ const CheckoutForm = ({ onConfirm }) => {
                         onChange={({ target }) => setEmail(target.value)}
                     />
                     </label>
-
-
-
-                </label>
             </form>
         </div>
     )
